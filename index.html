@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Week 5: DOM Manipulation</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header id="main-header">
+        <h1>DOM Manipulation Practice</h1>
+        <nav>
+            <ul class="nav-list">
+                <li><a href="#" class="nav-link">Home</a></li>
+                <li><a href="#" class="nav-link">About</a></li>
+                <li><a href="#" class="nav-link">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container">
+        <article>
+            <h2 class="title">Article Title</h2>
+            <p class="content">This is the first paragraph.</p>
+            <p class="content">This is the second paragraph.</p>
+        </article>
+
+        <section>
+            <h2>Contact Form</h2>
+            <form id="contact-form">
+                <input type="text" id="name" name="name" placeholder="Name">
+                <input type="email" id="email" name="email" placeholder="Email">
+                <button type="submit">Submit</button>
+            </form>
+        </section>
+
+        <section>
+            <h2>To-Do List</h2>
+            <form id="todo-form">
+                <input type="text" id="todo-input" placeholder="What needs to be done?" required>
+                <button type="submit">Add</button>
+            </form>
+            <div class="filters">
+                <button class="filter active" data-filter="all">All</button>
+                <button class="filter" data-filter="active">Active</button>
+                <button class="filter" data-filter="completed">Completed</button>
+            </div>
+            <ul id="todo-list"></ul>
+            <div class="stats">
+                <span id="items-left">0 items left</span>
+                <button id="clear-completed">Clear Completed</button>
+            </div>
+        </section>
+
+        <section>
+            <h2>Daily Challenges</h2>
+            <button id="color-changer">Random Heading Color</button>
+            <button id="add-paragraph">Add Paragraph</button>
+            <button id="remove-images">Remove Images</button>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Lucy Wachu</p>
+    </footer>
+
+    <script src="dom.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

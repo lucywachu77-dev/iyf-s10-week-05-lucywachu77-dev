@@ -1,0 +1,82 @@
+/* Basic reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.5;
+    background-color: #f8f8f8;
+    color: #333;
+    padding: 20px;
+}
+
+header, footer {
+    background-color: #222;
+    color: #fff;
+    padding: 10px 20px;
+    text-align: center;
+}
+
+.nav-list {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 10px;
+}
+
+.nav-link {
+    color: #fff;
+    text-decoration: none;
+}
+
+.container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+}
+
+h1, h2 {
+    margin-bottom: 10px;
+}
+
+article, section {
+    margin-bottom: 20px;
+}
+
+.content {
+    margin-bottom: 8px;
+}
+
+input, button {
+    padding: 8px 12px;
+    margin: 5px 0;
+}
+
+button {
+    cursor: pointer;
+}
+
+#todo-list li {
+    display: flex;
+    justify-content: space-between;
+    padding: 5px 0;
+}
+
+#todo-list li.completed {
+    text-decoration: line-through;
+    color: gray;
+}
+
+.error {
+    border: 2px solid red;
+}
+
+.highlight {
+    background-color: yellow;
+}
