@@ -1,33 +1,53 @@
-// DOM Selection
-const header = document.getElementById("main-header");
-const contents = document.getElementsByClassName("content");
-const paragraphs = document.getElementsByTagName("p");
-const firstLink = document.querySelector(".nav-link");
-const allLinks = document.querySelectorAll(".nav-link");
-const contactForm = document.getElementById("contact-form");
-const emailInput = document.getElementById("email");
-const navItems = document.querySelectorAll("nav li");
+// ===== dom.js =====
 
-// DOM Traversal
-console.log(header.parentElement); // body
-console.log(header.children);
-console.log(header.firstElementChild);
-console.log(header.lastElementChild);
+// DOM SELECTIONS
+const header = document.getElementById("main-header"); // select header by ID
+const articles = document.getElementsByTagName("article"); // select all articles
+const paragraphs = document.getElementsByTagName("p"); // select all paragraphs
+const contents = document.getElementsByClassName("content"); // select by class name
+const firstLink = document.querySelector(".nav-link"); // first element matching selector
+const allLinks = document.querySelectorAll(".nav-link"); // all elements matching selector
+const navItems = document.querySelectorAll("nav li"); // all list items in nav
 
-// Daily Challenges
-document.getElementById("color-changer").addEventListener("click", () => {
-    const colors = ["#e74c3c","#3498db","#2ecc71","#f1c40f"];
-    document.querySelectorAll("h1, h2, h3").forEach(h => {
-        h.style.color = colors[Math.floor(Math.random() * colors.length)];
-    });
-});
+console.log("Header element:", header);
+console.log("Articles:", articles);
+console.log("Paragraphs:", paragraphs);
+console.log("Contents by class name:", contents);
+console.log("First nav link:", firstLink);
+console.log("All nav links:", allLinks);
+console.log("Nav list items:", navItems);
 
-document.getElementById("add-paragraph").addEventListener("click", () => {
-    const p = document.createElement("p");
-    p.textContent = `New paragraph ${document.querySelectorAll(".container p").length + 1}`;
-    document.querySelector(".container").appendChild(p);
-});
+// ===== DOM TRAVERSAL =====
+console.log("Header's parent element:", header.parentElement); // usually <body>
+console.log("Header's children:", header.children);
+console.log("Header's first element child:", header.firstElementChild);
+console.log("Header's last element child:", header.lastElementChild);
 
-document.getElementById("remove-images").addEventListener("click", () => {
-    document.querySelectorAll("img").forEach(img => img.remove());
-});
+// Traversing siblings
+if (header.nextElementSibling) {
+    console.log("Header's next sibling element:", header.nextElementSibling);
+}
+if (header.previousElementSibling) {
+    console.log("Header's previous sibling element:", header.previousElementSibling);
+}
+
+// ===== DOM MANIPULATION EXAMPLES =====
+
+// Change first paragraph text
+if(paragraphs.length > 0){
+    paragraphs[0].textContent = "This paragraph text was changed via DOM!";
+}
+
+// Add a new class to all articles
+for (let article of articles) {
+    article.classList.add("highlight");
+}
+
+// Change all nav link colors
+allLinks.forEach(link => link.style.color = "#2ecc71");
+
+// Append a new paragraph dynamically (as a test)
+const container = document.querySelector(".container");
+const newPara = document.createElement("p");
+newPara.textContent = "This is a new paragraph added via dom.js!";
+container.appendChild(newPara);
