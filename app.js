@@ -1,12 +1,47 @@
-// ===== DOM Selections =====
-const header = document.getElementById("main-header");
-const contents = document.getElementsByClassName("content");
-const paragraphs = document.getElementsByTagName("p");
-const firstLink = document.querySelector(".nav-link");
-const allLinks = document.querySelectorAll(".nav-link");
+// ===== app.js =====
+
+// ===== CONTACT FORM =====
 const contactForm = document.getElementById("contact-form");
 const nameInput = document.getElementById("name");
 const emailInput = document.getElementById("email");
+
+function showError(input) {
+    input.classList.add("error");
+}
+
+function clearError(input) {
+    input.classList.remove("error");
+}
+
+contactForm.addEventListener("submit", e => {
+    e.preventDefault();
+
+    let valid = true;
+
+    if (nameInput.value.trim().length < 2) {
+        showError(nameInput);
+        valid = false;
+    } else {
+        clearError(nameInput);
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!emailRegex.test(emailInput.value.trim())) {
+        showError(emailInput);
+        valid = false;
+    } else {
+        clearError(emailInput);
+    }
+
+    if (valid) {
+        alert("Form submitted successfully!");
+        contactForm.reset();
+    }
+});
+
+
+// ===== TODO LIST =====
 const todoForm = document.getElementById("todo-form");
 const todoInput = document.getElementById("todo-input");
 const todoList = document.getElementById("todo-list");
@@ -14,93 +49,128 @@ const itemsLeft = document.getElementById("items-left");
 const filters = document.querySelectorAll(".filter");
 const clearCompletedBtn = document.getElementById("clear-completed");
 
-// ===== Contact Form Functions =====
-function showError(input) { input.classList.add("error"); }
-function clearError(input) { input.classList.remove("error"); }
-
-contactForm.addEventListener("submit", e => {
-    e.preventDefault();
-    let valid = true;
-
-    if(nameInput.value.length < 2){ showError(nameInput); valid=false; } 
-    else clearError(nameInput);
-
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if(!emailRegex.test(emailInput.value)){ showError(emailInput); valid=false; } 
-    else clearError(emailInput);
-
-    if(valid){
-        alert(`Form submitted!\nName: ${nameInput.value}\nEmail: ${emailInput.value}`);
-        contactForm.reset();
-    }
-});
-
-// ===== To-Do List =====
 let todos = [];
 let currentFilter = "all";
 
 function renderTodos() {
     todoList.innerHTML = "";
+
     let filtered = todos;
-    if(currentFilter === "active") filtered = todos.filter(t => !t.completed);
-    if(currentFilter === "completed") filtered = todos.filter(t => t.completed);
+
+    if (currentFilter === "active") {
+        filtered = todos.filter(t => !t.completed);
+    }
+
+    if (currentFilter === "completed") {
+        filtered = todos.filter(t => t.completed);
+    }
 
     filtered.forEach(todo => {
         const li = document.createElement("li");
-        li.textContent = todo.text;
         li.className = todo.completed ? "completed" : "";
-        li.dataset.id = todo.id;
 
-        const btn = document.createElement("button");
-        btn.textContent = "X";
-        btn.addEventListener("click", () => deleteTodo(todo.id));
-        li.appendChild(btn);
+        const span = document.createElement("span");
+        span.textContent = todo.text;
+        li.appendChild(span);
 
-        li.addEventListener("click", e => {
-            if(e.target.tagName !== "BUTTON") toggleTodo(todo.id);
+        // Toggle complete
+        span.addEventListener("click", () => {
+            toggleTodo(todo.id);
         });
 
+        // Delete button
+        const btn = document.createElement("button");
+        btn.textContent = "X";
+        btn.addEventListener("click", () => {
+            deleteTodo(todo.id);
+        });
+
+        li.appendChild(btn);
         todoList.appendChild(li);
     });
 
     itemsLeft.textContent = `${todos.filter(t => !t.completed).length} items left`;
 }
 
-function addTodo(text){ todos.push({id: Date.now(), text, completed:false}); renderTodos(); }
-function toggleTodo(id){ const todo = todos.find(t => t.id==id); todo.completed=!todo.completed; renderTodos(); }
-function deleteTodo(id){ todos = todos.filter(t => t.id!=id); renderTodos(); }
+function addTodo(text) {
+    todos.push({
+        id: Date.now(),
+        text: text,
+        completed: false
+    });
 
-filters.forEach(f => {
-    f.addEventListener("click", () => {
-        currentFilter = f.dataset.filter;
+    renderTodos();
+}
+
+function toggleTodo(id) {
+    const todo = todos.find(t => t.id === id);
+    if (todo) {
+        todo.completed = !todo.completed;
+    }
+    renderTodos();
+}
+
+function deleteTodo(id) {
+    todos = todos.filter(t => t.id !== id);
+    renderTodos();
+}
+
+// Add todo
+todoForm.addEventListener("submit", e => {
+    e.preventDefault();
+
+    const value = todoInput.value.trim();
+
+    if (value !== "") {
+        addTodo(value);
+        todoInput.value = "";
+    }
+});
+
+// Filters
+filters.forEach(button => {
+    button.addEventListener("click", () => {
+        currentFilter = button.dataset.filter;
+
         filters.forEach(b => b.classList.remove("active"));
-        f.classList.add("active");
+        button.classList.add("active");
+
         renderTodos();
     });
 });
 
-clearCompletedBtn.addEventListener("click", () => { todos = todos.filter(t => !t.completed); renderTodos(); });
-
-todoForm.addEventListener("submit", e => {
-    e.preventDefault();
-    if(todoInput.value.trim() !== "") addTodo(todoInput.value.trim());
-    todoInput.value = "";
+// Clear completed
+clearCompletedBtn.addEventListener("click", () => {
+    todos = todos.filter(t => !t.completed);
+    renderTodos();
 });
 
-renderTodos(); // initial render
+// Initial render
+renderTodos();
 
-// ===== Daily Challenges =====
+
+// ===== DAILY CHALLENGES =====
+
+// Random heading color
 document.getElementById("color-changer").addEventListener("click", () => {
-    const colors = ["#e74c3c","#3498db","#2ecc71","#f1c40f"];
-    document.querySelectorAll("h1,h2,h3").forEach(h=>h.style.color=colors[Math.floor(Math.random()*colors.length)]);
+    const colors = ["#e74c3c", "#3498db", "#2ecc71", "#f1c40f"];
+
+    document.querySelectorAll("h1, h2, h3").forEach(h => {
+        h.style.color = colors[Math.floor(Math.random() * colors.length)];
+    });
 });
 
+// Add paragraph
 document.getElementById("add-paragraph").addEventListener("click", () => {
     const p = document.createElement("p");
-    p.textContent = `New paragraph ${document.querySelectorAll(".container p").length + 1}`;
+
+    const count = document.querySelectorAll(".container p").length + 1;
+    p.textContent = `New paragraph ${count}`;
+
     document.querySelector(".container").appendChild(p);
 });
 
+// Remove images
 document.getElementById("remove-images").addEventListener("click", () => {
     document.querySelectorAll("img").forEach(img => img.remove());
 });
