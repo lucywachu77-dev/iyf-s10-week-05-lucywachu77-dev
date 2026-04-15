@@ -3,13 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lucy Wachu | DOM Manipulation Task</title>
+    <title>Lucy Wachu | Week 5 DOM Manipulation</title>
     <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
-    <!-- Navigation & Header (Task 9.1 & 9.2) -->
+
+    <!-- HEADER -->
     <header id="main-header">
         <h1>Portfolio Website</h1>
+
         <nav>
             <ul class="nav-list">
                 <li><a href="#" class="nav-link">Home</a></li>
@@ -19,17 +22,20 @@
         </nav>
     </header>
 
-    <!-- Main Content Container (Task 9.3) -->
+    <!-- MAIN CONTENT -->
     <main class="container">
+
+        <!-- ARTICLE -->
         <article class="content">
             <h2 id="article-title">Article Title</h2>
             <p>This is the first paragraph.</p>
             <p>This is the second paragraph.</p>
         </article>
 
-        <!-- Contact Form (Task 10.1 & Validation) -->
+        <!-- CONTACT FORM -->
         <section id="contact-section">
-            <h2 style="color: coral;">Contact Form</h2>
+            <h2>Contact Form</h2>
+
             <form id="contact-form">
                 <input type="text" id="name" placeholder="Name">
                 <input type="email" id="email" placeholder="Email">
@@ -37,23 +43,22 @@
             </form>
         </section>
 
-        <!-- To-Do List (State Management Logic) -->
+        <!-- TO DO LIST -->
         <section id="todo-section">
-            <h2 style="color: green;">To-Do List</h2>
+            <h2>To-Do List</h2>
+
             <form id="todo-form">
                 <input type="text" id="todo-input" placeholder="What needs to be done?">
                 <button type="submit">Add</button>
             </form>
-            
+
             <div class="filters">
                 <button class="filter active" data-filter="all">All</button>
                 <button class="filter" data-filter="active">Active</button>
                 <button class="filter" data-filter="completed">Completed</button>
             </div>
 
-            <ul id="todo-list">
-                <!-- Tasks will appear here via app.js -->
-            </ul>
+            <ul id="todo-list"></ul>
 
             <div class="footer-actions">
                 <span id="items-left">0 items left</span>
@@ -61,27 +66,29 @@
             </div>
         </section>
 
-        <!-- Daily Challenges (Last Part of app.js) -->
+        <!-- DAILY CHALLENGES -->
         <section id="challenges">
             <h2>Daily Challenges</h2>
+
             <button id="color-changer">Random Heading Color</button>
             <button id="add-paragraph">Add Paragraph</button>
             <button id="remove-images">Remove Images</button>
-            
-            <!-- Test image for the remove challenge -->
+
             <div class="image-test">
-                <img src="https://via.placeholder.com" alt="Test Image">
+                <img src="https://via.placeholder.com/150" alt="Test Image">
             </div>
         </section>
+
     </main>
 
+    <!-- FOOTER -->
     <footer>
         <p>&copy; 2026 Lucy Wachu</p>
     </footer>
 
-    <!-- Script source matches your file name -->
-   <script src="dom.js"></script>
-<script src="app.js"></script>
-</body>
+    <!-- SCRIPTS (IMPORTANT ORDER) -->
+    <script src="dom.js"></script>
+    <script src="app.js"></script>
 
+</body>
 </html>

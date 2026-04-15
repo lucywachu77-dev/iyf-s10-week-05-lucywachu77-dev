@@ -1,4 +1,5 @@
 /* ===== General Layout ===== */
+
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     line-height: 1.6;
@@ -16,18 +17,23 @@ body {
     box-shadow: 0 4px 15px rgba(0,0,0,0.1);
 }
 
+/* ===== Header ===== */
+
 header {
     text-align: center;
     border-bottom: 2px solid #eee;
     margin-bottom: 20px;
 }
 
+/* Smooth color change for DOM challenge */
 h1, h2 {
-    transition: color 0.3s ease; /* Smooth color change for Challenge #1 */
+    transition: color 0.3s ease;
 }
 
 /* ===== Form Styling ===== */
-input, input[type="email"] {
+
+input,
+input[type="email"] {
     width: calc(100% - 22px);
     padding: 10px;
     margin: 10px 0;
@@ -36,11 +42,19 @@ input, input[type="email"] {
     outline: none;
 }
 
-/* Error Class used in app.js Validation */
+/* Focus effect (important for UX + DOM interaction) */
+input:focus {
+    border-color: #3498db;
+    box-shadow: 0 0 5px rgba(52, 152, 219, 0.4);
+}
+
+/* Error class used in JavaScript validation */
 input.error {
     border: 2px solid #e74c3c;
     background-color: #fdeaea;
 }
+
+/* ===== Buttons ===== */
 
 button {
     padding: 10px 15px;
@@ -49,14 +63,19 @@ button {
     background-color: #3498db;
     color: white;
     cursor: pointer;
-    transition: background 0.2s;
+    transition: background 0.2s, transform 0.1s;
 }
 
 button:hover {
     background-color: #2980b9;
 }
 
+button:active {
+    transform: scale(0.97);
+}
+
 /* ===== To-Do List Styling ===== */
+
 #todo-list {
     list-style: none;
     padding: 0;
@@ -71,15 +90,17 @@ button:hover {
     background: #fff;
     border-bottom: 1px solid #eee;
     cursor: pointer;
+    transition: all 0.2s ease;
 }
 
-/* Completed Class used in app.js toggleTodo */
+/* Completed task style (used in JS toggle) */
 .todo-item.completed span {
     text-decoration: line-through;
     color: #95a5a6;
     opacity: 0.6;
 }
 
+/* Delete button */
 .delete-btn {
     background-color: #e74c3c;
     padding: 5px 10px;
@@ -90,7 +111,8 @@ button:hover {
     background-color: #c0392b;
 }
 
-/* ===== Filter Buttons ===== */
+/* ===== Filters ===== */
+
 .filters {
     margin: 15px 0;
     display: flex;
@@ -102,6 +124,7 @@ button:hover {
     font-weight: bold;
 }
 
+/* Footer actions */
 .footer-actions {
     display: flex;
     justify-content: space-between;
@@ -111,6 +134,7 @@ button:hover {
 }
 
 /* ===== Challenges Section ===== */
+
 #challenges {
     margin-top: 40px;
     padding-top: 20px;

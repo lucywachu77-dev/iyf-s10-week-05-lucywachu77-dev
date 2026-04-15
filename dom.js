@@ -9,6 +9,13 @@ const firstLink = document.querySelector(".nav-link");
 const allLinks = document.querySelectorAll(".nav-link");
 const navItems = document.querySelectorAll("nav li");
 
+// Additional required selections
+const h1 = document.querySelector("h1");
+const form = document.getElementById("contact-form");
+const emailInput = document.getElementById("email");
+const lastParagraph = document.querySelector("p:last-of-type");
+
+// Logs
 console.log("Header:", header);
 console.log("Articles:", articles);
 console.log("Paragraphs:", paragraphs);
@@ -16,12 +23,16 @@ console.log("Contents:", contents);
 console.log("First link:", firstLink);
 console.log("All links:", allLinks);
 console.log("Nav items:", navItems);
+console.log("H1:", h1);
+console.log("Form:", form);
+console.log("Email Input:", emailInput);
+console.log("Last Paragraph:", lastParagraph);
 
 // ===== DOM TRAVERSAL =====
-console.log("Parent:", header.parentElement);
-console.log("Children:", header.children);
-console.log("First child:", header.firstElementChild);
-console.log("Last child:", header.lastElementChild);
+console.log("Parent of header:", header.parentElement);
+console.log("Children of header:", header.children);
+console.log("First child of header:", header.firstElementChild);
+console.log("Last child of header:", header.lastElementChild);
 
 // ===== SIMPLE DOM MANIPULATION =====
 
@@ -40,8 +51,11 @@ allLinks.forEach(link => {
     link.style.color = "#2ecc71";
 });
 
-// Add one test paragraph
+// ===== ADD NEW ELEMENT =====
 const container = document.querySelector(".container");
-const newPara = document.createElement("p");
-newPara.textContent = "This is a new paragraph added via dom.js!";
-container.appendChild(newPara);
+
+if (container) {
+    const newPara = document.createElement("p");
+    newPara.textContent = "This is a new paragraph added via dom.js!";
+    container.appendChild(newPara);
+}
