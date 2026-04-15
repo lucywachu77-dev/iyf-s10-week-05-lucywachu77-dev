@@ -47,9 +47,10 @@
         <section id="todo-section">
             <h2>To-Do List</h2>
 
+            <!-- FIXED ID TO MATCH JS -->
             <form id="todo-form">
-                <input type="text" id="todo-input" placeholder="What needs to be done?">
-                <button type="submit">Add</button>
+                <input type="text" id="task-input" placeholder="What needs to be done?">
+                <button type="button" id="add-task">Add Task</button>
             </form>
 
             <div class="filters">
@@ -75,7 +76,7 @@
             <button id="remove-images">Remove Images</button>
 
             <div class="image-test">
-                <img src="https://via.placeholder.com/150" alt="Test Image">
+                <img src="https://placehold.co/150" alt="Test Image">
             </div>
         </section>
 
@@ -86,7 +87,7 @@
         <p>&copy; 2026 Lucy Wachu</p>
     </footer>
 
-    <!-- SCRIPTS (IMPORTANT ORDER) -->
+    <!-- SCRIPTS -->
     <script src="dom.js"></script>
     <script src="app.js"></script>
 
