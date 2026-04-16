@@ -1,101 +1,100 @@
-console.log("Week 5 JS loaded successfully");
+document.addEventListener("DOMContentLoaded", function () {
 
-// ==========================
-// DOM ELEMENTS
-// ==========================
+    console.log("App loaded");
 
-// IMPORTANT: declare each variable only ONCE
-const emailInput = document.getElementById("email");
-const form = document.getElementById("contact-form");
+    // ======================
+    // FORM VALIDATION
+    // ======================
+    const form = document.getElementById("contact-form");
+    const emailInput = document.getElementById("email");
 
-const taskInput = document.getElementById("task-input");
-const addTaskBtn = document.getElementById("add-task");
-const todoList = document.getElementById("todo-list");
+    if (form) {
+        form.addEventListener("submit", function (e) {
+            e.preventDefault();
 
-// ==========================
-// CONTACT FORM VALIDATION
-// ==========================
-
-if (form) {
-    form.addEventListener("submit", function (e) {
-        e.preventDefault();
-
-        if (!emailInput.value.trim()) {
-            emailInput.classList.add("error");
-            alert("Email is required!");
-        } else {
-            emailInput.classList.remove("error");
-            alert("Form submitted successfully!");
-        }
-    });
-}
-
-// ==========================
-// TO-DO LIST FUNCTIONALITY
-// ==========================
-
-if (addTaskBtn) {
-    addTaskBtn.addEventListener("click", function () {
-        const taskText = taskInput.value.trim();
-
-        if (taskText === "") {
-            alert("Please enter a task!");
-            return;
-        }
-
-        // Create list item
-        const li = document.createElement("li");
-        li.classList.add("todo-item");
-
-        // Task text
-        const span = document.createElement("span");
-        span.textContent = taskText;
-
-        // Toggle complete
-        span.addEventListener("click", function () {
-            li.classList.toggle("completed");
+            if (emailInput.value.trim() === "") {
+                emailInput.classList.add("error");
+                alert("Email is required!");
+            } else {
+                emailInput.classList.remove("error");
+                alert("Form submitted successfully!");
+            }
         });
+    }
 
-        // Delete button
-        const deleteBtn = document.createElement("button");
-        deleteBtn.textContent = "Delete";
-        deleteBtn.classList.add("delete-btn");
+    // ======================
+    // TO-DO LIST
+    // ======================
+    const input = document.getElementById("task-input");
+    const addBtn = document.getElementById("add-task");
+    const list = document.getElementById("todo-list");
 
-        deleteBtn.addEventListener("click", function () {
-            li.remove();
+    if (addBtn) {
+        addBtn.addEventListener("click", function () {
+            const text = input.value.trim();
+
+            if (text === "") return;
+
+            const li = document.createElement("li");
+            li.classList.add("todo-item");
+
+            const span = document.createElement("span");
+            span.textContent = text;
+
+            // toggle complete
+            span.addEventListener("click", () => {
+                li.classList.toggle("completed");
+            });
+
+            // delete button
+            const delBtn = document.createElement("button");
+            delBtn.textContent = "Delete";
+            delBtn.classList.add("delete-btn");
+
+            delBtn.addEventListener("click", () => {
+                li.remove();
+            });
+
+            li.appendChild(span);
+            li.appendChild(delBtn);
+            list.appendChild(li);
+
+            input.value = "";
         });
+    }
 
-        li.appendChild(span);
-        li.appendChild(deleteBtn);
+    // ======================
+    // CHALLENGES
+    // ======================
 
-        todoList.appendChild(li);
+    // 1. Random heading color
+    const colorBtn = document.getElementById("color-changer");
+    const h1 = document.querySelector("h1");
 
-        // clear input
-        taskInput.value = "";
-    });
-}
+    if (colorBtn) {
+        colorBtn.addEventListener("click", () => {
+            h1.style.color = `hsl(${Math.random()*360},70%,50%)`;
+        });
+    }
 
-// ==========================
-// DAILY DOM CHALLENGES
-// ==========================
+    // 2. Add paragraph
+    const addParaBtn = document.getElementById("add-paragraph");
 
-// Change heading color randomly
-function randomColor() {
-    return `hsl(${Math.random() * 360}, 70%, 50%)`;
-}
+    if (addParaBtn) {
+        addParaBtn.addEventListener("click", () => {
+            const p = document.createElement("p");
+            p.textContent = "New paragraph added!";
+            document.body.appendChild(p);
+        });
+    }
 
-const h1 = document.querySelector("h1");
-if (h1) {
-    h1.addEventListener("click", function () {
-        h1.style.color = randomColor();
-    });
-}
+    // 3. Remove images
+    const removeImgBtn = document.getElementById("remove-images");
 
-// Remove all images
-const removeImagesBtn = document.getElementById("remove-images");
+    if (removeImgBtn) {
+        removeImgBtn.addEventListener("click", () => {
+            document.querySelectorAll("img").forEach(img => img.remove());
+        });
+    }
 
-if (removeImagesBtn) {
-    removeImagesBtn.addEventListener("click", function () {
-        document.querySelectorAll("img").forEach(img => img.remove());
-    });
-}
+});

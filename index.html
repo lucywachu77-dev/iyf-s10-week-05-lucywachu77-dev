@@ -37,8 +37,8 @@
             <h2>Contact Form</h2>
 
             <form id="contact-form">
-                <input type="text" id="name" placeholder="Name">
-                <input type="email" id="email" placeholder="Email">
+                <input type="text" id="name" placeholder="Name" required>
+                <input type="email" id="email" placeholder="Email" required>
                 <button type="submit">Submit</button>
             </form>
         </section>
@@ -47,9 +47,9 @@
         <section id="todo-section">
             <h2>To-Do List</h2>
 
-            <!-- FIXED ID TO MATCH JS -->
-            <form id="todo-form">
-                <input type="text" id="task-input" placeholder="What needs to be done?">
+            <!-- FIX: prevent form refresh -->
+            <form id="todo-form" onsubmit="return false;">
+                <input type="text" id="task-input" placeholder="What needs to be done?" required>
                 <button type="button" id="add-task">Add Task</button>
             </form>
 
@@ -87,7 +87,7 @@
         <p>&copy; 2026 Lucy Wachu</p>
     </footer>
 
-    <!-- SCRIPTS -->
+    <!-- SCRIPTS (correct order) -->
     <script src="dom.js"></script>
     <script src="app.js"></script>
 
