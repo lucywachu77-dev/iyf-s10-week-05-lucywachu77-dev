@@ -13,11 +13,12 @@ document.addEventListener("DOMContentLoaded", function () {
             if (emailInput.value.trim() === "") {
                 emailInput.classList.add("error");
                 alert("Email is required!");
-            } else {
-                emailInput.classList.remove("error");
-                alert("Form submitted successfully!");
-                form.reset();
+                return;
             }
+
+            emailInput.classList.remove("error");
+            alert("Form submitted successfully!");
+            form.reset();
         });
     }
 
@@ -32,7 +33,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const filterButtons = document.querySelectorAll(".filter");
 
     // ======================
-    // UPDATE COUNTER
+    // COUNTER
     // ======================
     function updateCounter() {
         const activeTasks = document.querySelectorAll(".todo-item:not(.completed)");
@@ -40,11 +41,11 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // ======================
-    // ADD TASK
+    // ADD TASK (FIXED)
     // ======================
     addBtn.addEventListener("click", function () {
-        const text = input.value.trim();
 
+        const text = input.value.trim();
         if (text === "") return;
 
         const li = document.createElement("li");
@@ -53,13 +54,23 @@ document.addEventListener("DOMContentLoaded", function () {
         const span = document.createElement("span");
         span.textContent = text;
 
-        // toggle complete
+        // toggle complete by clicking text
         span.addEventListener("click", () => {
             li.classList.toggle("completed");
             updateCounter();
         });
 
-        // delete task
+        // Completed button (required for your assignment UI)
+        const completeBtn = document.createElement("button");
+        completeBtn.textContent = "Completed";
+        completeBtn.classList.add("complete-btn");
+
+        completeBtn.addEventListener("click", () => {
+            li.classList.toggle("completed");
+            updateCounter();
+        });
+
+        // delete button
         const delBtn = document.createElement("button");
         delBtn.textContent = "Delete";
         delBtn.classList.add("delete-btn");
@@ -70,7 +81,9 @@ document.addEventListener("DOMContentLoaded", function () {
         });
 
         li.appendChild(span);
+        li.appendChild(completeBtn);
         li.appendChild(delBtn);
+
         list.appendChild(li);
 
         input.value = "";
@@ -97,11 +110,11 @@ document.addEventListener("DOMContentLoaded", function () {
                     task.style.display = "flex";
                 }
 
-                else if (filter === "active") {
+                if (filter === "active") {
                     task.style.display = isCompleted ? "none" : "flex";
                 }
 
-                else if (filter === "completed") {
+                if (filter === "completed") {
                     task.style.display = isCompleted ? "flex" : "none";
                 }
             });
@@ -112,33 +125,31 @@ document.addEventListener("DOMContentLoaded", function () {
     // CLEAR COMPLETED
     // ======================
     clearBtn.addEventListener("click", () => {
-        document.querySelectorAll(".todo-item.completed").forEach(task => task.remove());
+        document.querySelectorAll(".todo-item.completed")
+            .forEach(task => task.remove());
+
         updateCounter();
     });
 
     // ======================
-    // CHALLENGES
+    // EXTRA FEATURES
     // ======================
 
-    // Random heading color
-    document.getElementById("color-changer").addEventListener("click", () => {
+    document.getElementById("color-changer")?.addEventListener("click", () => {
         document.querySelector("h1").style.color =
             `hsl(${Math.random() * 360},70%,50%)`;
     });
 
-    // Add paragraph
-    document.getElementById("add-paragraph").addEventListener("click", () => {
+    document.getElementById("add-paragraph")?.addEventListener("click", () => {
         const p = document.createElement("p");
         p.textContent = "New paragraph added!";
         document.body.appendChild(p);
     });
 
-    // Remove images
-    document.getElementById("remove-images").addEventListener("click", () => {
+    document.getElementById("remove-images")?.addEventListener("click", () => {
         document.querySelectorAll("img").forEach(img => img.remove());
     });
 
-    // initial counter
+    // INITIAL COUNTER
     updateCounter();
-
 });
