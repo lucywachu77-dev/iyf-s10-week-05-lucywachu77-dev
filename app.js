@@ -1,9 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
 
-    console.log("App loaded");
-
     // ======================
-    // FORM VALIDATION
+    // CONTACT FORM
     // ======================
     const form = document.getElementById("contact-form");
     const emailInput = document.getElementById("email");
@@ -18,84 +16,93 @@ document.addEventListener("DOMContentLoaded", function () {
             } else {
                 emailInput.classList.remove("error");
                 alert("Form submitted successfully!");
+                form.reset();
             }
         });
     }
 
     // ======================
-    // TODO LIST
+    // TODO ELEMENTS
     // ======================
     const input = document.getElementById("task-input");
     const addBtn = document.getElementById("add-task");
     const list = document.getElementById("todo-list");
     const itemsLeft = document.getElementById("items-left");
-    const clearCompletedBtn = document.getElementById("clear-completed");
+    const clearBtn = document.getElementById("clear-completed");
+    const filterButtons = document.querySelectorAll(".filter");
 
+    // ======================
+    // UPDATE COUNTER
+    // ======================
     function updateCounter() {
-        const allTasks = document.querySelectorAll(".todo-item");
         const activeTasks = document.querySelectorAll(".todo-item:not(.completed)");
         itemsLeft.textContent = `${activeTasks.length} items left`;
     }
 
-    if (addBtn) {
-        addBtn.addEventListener("click", function () {
-            const text = input.value.trim();
-            if (text === "") return;
+    // ======================
+    // ADD TASK
+    // ======================
+    addBtn.addEventListener("click", function () {
+        const text = input.value.trim();
 
-            const li = document.createElement("li");
-            li.classList.add("todo-item");
+        if (text === "") return;
 
-            const span = document.createElement("span");
-            span.textContent = text;
+        const li = document.createElement("li");
+        li.classList.add("todo-item");
 
-            // Toggle completed
-            span.addEventListener("click", () => {
-                li.classList.toggle("completed");
-                updateCounter();
-            });
+        const span = document.createElement("span");
+        span.textContent = text;
 
-            // Delete button
-            const delBtn = document.createElement("button");
-            delBtn.textContent = "Delete";
-            delBtn.classList.add("delete-btn");
-
-            delBtn.addEventListener("click", () => {
-                li.remove();
-                updateCounter();
-            });
-
-            li.appendChild(span);
-            li.appendChild(delBtn);
-            list.appendChild(li);
-
-            input.value = "";
+        // toggle complete
+        span.addEventListener("click", () => {
+            li.classList.toggle("completed");
             updateCounter();
         });
-    }
+
+        // delete task
+        const delBtn = document.createElement("button");
+        delBtn.textContent = "Delete";
+        delBtn.classList.add("delete-btn");
+
+        delBtn.addEventListener("click", () => {
+            li.remove();
+            updateCounter();
+        });
+
+        li.appendChild(span);
+        li.appendChild(delBtn);
+        list.appendChild(li);
+
+        input.value = "";
+        updateCounter();
+    });
 
     // ======================
-    // FILTER BUTTONS
+    // FILTER SYSTEM (FIXED)
     // ======================
-    const filterButtons = document.querySelectorAll(".filter");
-
     filterButtons.forEach(button => {
         button.addEventListener("click", () => {
+
             const filter = button.dataset.filter;
             const tasks = document.querySelectorAll(".todo-item");
 
-            // active button style
             filterButtons.forEach(btn => btn.classList.remove("active"));
             button.classList.add("active");
 
             tasks.forEach(task => {
+
+                const isCompleted = task.classList.contains("completed");
+
                 if (filter === "all") {
                     task.style.display = "flex";
-                } 
+                }
+
                 else if (filter === "active") {
-                    task.style.display = task.classList.contains("completed") ? "none" : "flex";
-                } 
+                    task.style.display = isCompleted ? "none" : "flex";
+                }
+
                 else if (filter === "completed") {
-                    task.style.display = task.classList.contains("completed") ? "flex" : "none";
+                    task.style.display = isCompleted ? "flex" : "none";
                 }
             });
         });
@@ -104,45 +111,34 @@ document.addEventListener("DOMContentLoaded", function () {
     // ======================
     // CLEAR COMPLETED
     // ======================
-    if (clearCompletedBtn) {
-        clearCompletedBtn.addEventListener("click", () => {
-            document.querySelectorAll(".todo-item.completed").forEach(task => task.remove());
-            updateCounter();
-        });
-    }
+    clearBtn.addEventListener("click", () => {
+        document.querySelectorAll(".todo-item.completed").forEach(task => task.remove());
+        updateCounter();
+    });
 
     // ======================
     // CHALLENGES
     // ======================
 
     // Random heading color
-    const colorBtn = document.getElementById("color-changer");
-    const h1 = document.querySelector("h1");
-
-    if (colorBtn) {
-        colorBtn.addEventListener("click", () => {
-            h1.style.color = `hsl(${Math.random()*360},70%,50%)`;
-        });
-    }
+    document.getElementById("color-changer").addEventListener("click", () => {
+        document.querySelector("h1").style.color =
+            `hsl(${Math.random() * 360},70%,50%)`;
+    });
 
     // Add paragraph
-    const addParaBtn = document.getElementById("add-paragraph");
-
-    if (addParaBtn) {
-        addParaBtn.addEventListener("click", () => {
-            const p = document.createElement("p");
-            p.textContent = "New paragraph added!";
-            document.body.appendChild(p);
-        });
-    }
+    document.getElementById("add-paragraph").addEventListener("click", () => {
+        const p = document.createElement("p");
+        p.textContent = "New paragraph added!";
+        document.body.appendChild(p);
+    });
 
     // Remove images
-    const removeImgBtn = document.getElementById("remove-images");
+    document.getElementById("remove-images").addEventListener("click", () => {
+        document.querySelectorAll("img").forEach(img => img.remove());
+    });
 
-    if (removeImgBtn) {
-        removeImgBtn.addEventListener("click", () => {
-            document.querySelectorAll("img").forEach(img => img.remove());
-        });
-    }
+    // initial counter
+    updateCounter();
 
 });
