@@ -23,16 +23,23 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // ======================
-    // TO-DO LIST
+    // TODO LIST
     // ======================
     const input = document.getElementById("task-input");
     const addBtn = document.getElementById("add-task");
     const list = document.getElementById("todo-list");
+    const itemsLeft = document.getElementById("items-left");
+    const clearCompletedBtn = document.getElementById("clear-completed");
+
+    function updateCounter() {
+        const allTasks = document.querySelectorAll(".todo-item");
+        const activeTasks = document.querySelectorAll(".todo-item:not(.completed)");
+        itemsLeft.textContent = `${activeTasks.length} items left`;
+    }
 
     if (addBtn) {
         addBtn.addEventListener("click", function () {
             const text = input.value.trim();
-
             if (text === "") return;
 
             const li = document.createElement("li");
@@ -41,18 +48,20 @@ document.addEventListener("DOMContentLoaded", function () {
             const span = document.createElement("span");
             span.textContent = text;
 
-            // toggle complete
+            // Toggle completed
             span.addEventListener("click", () => {
                 li.classList.toggle("completed");
+                updateCounter();
             });
 
-            // delete button
+            // Delete button
             const delBtn = document.createElement("button");
             delBtn.textContent = "Delete";
             delBtn.classList.add("delete-btn");
 
             delBtn.addEventListener("click", () => {
                 li.remove();
+                updateCounter();
             });
 
             li.appendChild(span);
@@ -60,6 +69,45 @@ document.addEventListener("DOMContentLoaded", function () {
             list.appendChild(li);
 
             input.value = "";
+            updateCounter();
+        });
+    }
+
+    // ======================
+    // FILTER BUTTONS
+    // ======================
+    const filterButtons = document.querySelectorAll(".filter");
+
+    filterButtons.forEach(button => {
+        button.addEventListener("click", () => {
+            const filter = button.dataset.filter;
+            const tasks = document.querySelectorAll(".todo-item");
+
+            // active button style
+            filterButtons.forEach(btn => btn.classList.remove("active"));
+            button.classList.add("active");
+
+            tasks.forEach(task => {
+                if (filter === "all") {
+                    task.style.display = "flex";
+                } 
+                else if (filter === "active") {
+                    task.style.display = task.classList.contains("completed") ? "none" : "flex";
+                } 
+                else if (filter === "completed") {
+                    task.style.display = task.classList.contains("completed") ? "flex" : "none";
+                }
+            });
+        });
+    });
+
+    // ======================
+    // CLEAR COMPLETED
+    // ======================
+    if (clearCompletedBtn) {
+        clearCompletedBtn.addEventListener("click", () => {
+            document.querySelectorAll(".todo-item.completed").forEach(task => task.remove());
+            updateCounter();
         });
     }
 
@@ -67,7 +115,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // CHALLENGES
     // ======================
 
-    // 1. Random heading color
+    // Random heading color
     const colorBtn = document.getElementById("color-changer");
     const h1 = document.querySelector("h1");
 
@@ -77,7 +125,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    // 2. Add paragraph
+    // Add paragraph
     const addParaBtn = document.getElementById("add-paragraph");
 
     if (addParaBtn) {
@@ -88,7 +136,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    // 3. Remove images
+    // Remove images
     const removeImgBtn = document.getElementById("remove-images");
 
     if (removeImgBtn) {
